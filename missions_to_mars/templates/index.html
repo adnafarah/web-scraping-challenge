@@ -13,19 +13,40 @@
 
         <div class="jumbotron text-center">
           <h1>MISSION TO MARS!!</h1>
-          <p><a class="btn btn-primary btn-lg" href="/scrape_mars" role="button">Scrape New Data</a></p>
+          <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
         </div>
     
         <!-- Mars Data -->
         <div class="row" id="craiglist-listings">
           <div class="col-md-12">
-            <h4 class="heading">{{ mars_data.news_title }} {{ mars_data.news_p }}</h4>
+            <h2 class="heading">{{ mars_data.news_title }} </h2>
+            <p> {{ mars_data.news_p }}</p>
             <!-- <small>{{ mars_data.featured_image_url }}</small> -->
             <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
           </div>
 
-          <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
 
+          <div class="col-md-12">
+            <table class = "table table-striped">
+                {{ mars_data.mars_table }}  
+            </table>
+          </div>
+          
+          <div class="title text-center">
+            <h2> Mars Hemispheres</h2>
+          </div>
+
+          <div>            <img src="{{ mars_data.hemispheres.title }}" alt="hem_dictsss">
+          </div>
+
+          <div>            <img src="{{ mars_data.hemispheres[2] }}" alt="Mars Featured Image">
+          </div>
+
+          <div>            <img src="{{ mars_data.hemispheres[3] }}" alt="Mars Featured Image">
+          </div>
+
+          <div>            <img src="{{ mars_data.hemispheres[4] }}" alt="Mars Featured Image">
+          </div>
 
         </div>
     
