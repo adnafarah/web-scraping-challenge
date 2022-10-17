@@ -19,9 +19,14 @@
         <!-- Mars Data -->
         <div class="row" id="craiglist-listings">
           <div class="col-md-12">
-            <h4 class="heading">{{mars_data.news_title}} {{mars_data.news_p}}</h4>
-            <small>{{mars_data.featured_image_url}}</small>
+            <h4 class="heading">{{ mars_data.news_title }} {{ mars_data.news_p }}</h4>
+            <!-- <small>{{ mars_data.featured_image_url }}</small> -->
+            <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
           </div>
+
+          <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
+
+
         </div>
     
       </div>

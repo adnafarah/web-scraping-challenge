@@ -27,7 +27,7 @@ def scrape():
     browser.visit(url1)
 
     # Let it sleep for 1 second
-    time.sleep(1)
+    #time.sleep(1)
 
     # Return all the HTML on our page
     html = browser.html
