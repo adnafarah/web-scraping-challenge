@@ -12,7 +12,7 @@ mongo = PyMongo(app)
 def index():
     # find one document from our mongo db and return it.
     mars_data = mongo.db.mars_data.find_one()
-    # pass that listing to render_template
+    # pass that mars_data to render_template
     return render_template("index.html", mars_data=mars_data)
 
 
@@ -30,7 +30,8 @@ def scraper():
 
 @app.route("/scrape")
 def scraper2():
-
+        # create a mars_data database
+    mars_data = mongo.db.mars_data
     # call the scrape function in our scrape_mars file to save to mongo.
     mars_data_ = scrape_mars.scrape2()
     # update our mars data with the data that is being scraped.
@@ -40,7 +41,8 @@ def scraper2():
 
 @app.route("/scrape")
 def scraper3():
-
+    # create a mars_data database
+    mars_data = mongo.db.mars_data
     # call the scrape function in our scrape_mars file to save to mongo.
     mars_data_ = scrape_mars.scrape3()
     # update our mars data with the data that is being scraped.
@@ -50,7 +52,8 @@ def scraper3():
 
 @app.route("/scrape")
 def scraper4():
-
+    # create a mars_data database
+    mars_data = mongo.db.mars_data
     # call the scrape function in our scrape_mars file to save to mongo.
     mars_data_ = scrape_mars.scrape4()
     # update our mars data with the data that is being scraped.
@@ -61,3 +64,12 @@ def scraper4():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
+# ##function
+# try
+# except 
+# read url, 
+
+# return mars_data , return html and define class 

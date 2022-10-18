@@ -10,7 +10,8 @@ from selenium.webdriver.common.by import By
 
 
  # Set an empty dict for saving to Mongo
-mars_data = {}
+mars_data = {"mars_table": "", "hemispheres": "",
+}
 
 def scrape1():
     
@@ -85,7 +86,8 @@ def scrape3():
 
 
     #Make top row the column names 
-    new_header = df1.iloc[0] 
+    new_header = df1.iloc[0]
+    df1 = df1.set_index(0) 
     df1.columns = new_header
 
     #convert to html string 
