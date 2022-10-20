@@ -10,8 +10,8 @@ from selenium.webdriver.common.by import By
 
 
  # Set an empty dict for saving to Mongo
-mars_data = {"mars_table": "", "hemispheres": "",
-}
+mars_data = {}
+
 
 def scrape1():
     
@@ -27,7 +27,7 @@ def scrape1():
     
     # Call visit on our browser and pass in the URL we want to scrape   
     browser.visit(url1)
-
+    browser.is_element_present_by_css("div.list_text", wait_time=1)
     # Let it sleep for 1 second
     #time.sleep(1)
 
@@ -36,9 +36,10 @@ def scrape1():
     
     # Create a Beautiful Soup object, pass in our HTML, and call 'html.parser'
     news_soup = soup(html, 'html.parser')
-
+    print(news_soup)
     #Use CSS selector
     list_text = news_soup.select_one('div.list_text')
+    print(list_text)
     list_text.find('div', class_='content_title')
 
     # Build our dictionary for the headline, price, and neighborhood from our scraped data
@@ -48,6 +49,7 @@ def scrape1():
     browser.quit()
 
         # Return our dictionary
+    print("Returned data: ", mars_data)
     return mars_data
 
 def scrape2():
@@ -72,6 +74,7 @@ def scrape2():
 
         # Return our dictionary
     return mars_data
+
 def scrape3():
     
     ## Scrape 3 Mars Facts##

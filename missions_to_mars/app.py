@@ -23,6 +23,7 @@ def scraper():
     mars_data = mongo.db.mars_data
     # call the scrape function in our scrape_mars file to save to mongo.
     mars_data_ = scrape_mars.scrape1()
+    print("My scraped data is : ", mars_data_)
     # update our mars data with the data that is being scraped.
     mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
     # return a message to our page so we know it was successful.
