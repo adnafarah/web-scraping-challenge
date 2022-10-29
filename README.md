@@ -14,10 +14,10 @@ The initial scraping was completed using Jupyter Notebook, BeautifulSoup, Pandas
 
 The information that was scraped is as follows:
 
-        - Mars News Site: collected the latest News Title and Paragraph Text
-        - JPL Mars Space Images: scraped the Featured Image URL
-        - Mars Facts: used Pandas to scrape the table containing facts about the planet including diameter, mass, etc
-        - Mars Hemispheres: obtained high-resolution images for each hemisphere of Mars, along with its title
+- Mars News Site: collected the latest News Title and Paragraph Text
+- JPL Mars Space Images: scraped the Featured Image URL
+- Mars Facts: used Pandas to scrape the table containing facts about the planet including diameter, mass, etc
+- Mars Hemispheres: obtained high-resolution images for each hemisphere of Mars, along with its title
 
 
 
@@ -26,7 +26,6 @@ Used MongoDB with Flask templating to create a new HTML page that displays all t
 
 
 The Jupyter notebook was converted into a Python script called scrape_mars.py that uses a function called scrape. This function executes all the scraping code from above and returns one Python dictionary containing all the scraped data.
-
 
 Next, created a route called /scrape that will import the scrape_mars.py script and calls the scrape function.
 
