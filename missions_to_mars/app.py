@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-import scrape_mars
+import scrape_mars_copy
+
 
 app = Flask(__name__)
 
@@ -22,45 +23,48 @@ def scraper():
     # create a mars_data database
     mars_data = mongo.db.mars_data
     # call the scrape function in our scrape_mars file to save to mongo.
-    mars_data_ = scrape_mars.scrape1()
-    print("My scraped data is : ", mars_data_)
+    mars_data_ = scrape_mars_copy.scrape()
+    #print("My scraped data is : ", mars_data_)
     # update our mars data with the data that is being scraped.
     mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
     # return a message to our page so we know it was successful.
     return redirect("/", code=302)
 
-@app.route("/scrape")
-def scraper2():
-        # create a mars_data database
-    mars_data = mongo.db.mars_data
-    # call the scrape function in our scrape_mars file to save to mongo.
-    mars_data_ = scrape_mars.scrape2()
-    # update our mars data with the data that is being scraped.
-    mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
-    # return a message to our page so we know it was successful.
-    return redirect("/", code=302)
+# @app.route("/scrape")
+# def scraper2():
+#     # create a mars_data database
+#     mars_data = mongo.db.mars_data
+#     # call the scrape function in our scrape_mars file to save to mongo.
+#     mars_data_ = scrape_mars.scrape2()
+#     # update our mars data with the data that is being scraped.
+#     mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
+#     # return a message to our page so we know it was successful.
+#     return redirect("/", code=302)
 
-@app.route("/scrape")
-def scraper3():
-    # create a mars_data database
-    mars_data = mongo.db.mars_data
-    # call the scrape function in our scrape_mars file to save to mongo.
-    mars_data_ = scrape_mars.scrape3()
-    # update our mars data with the data that is being scraped.
-    mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
-    # return a message to our page so we know it was successful.
-    return redirect("/", code=302)
+# @app.route("/scrape")
+# def html_table():
+#         # create a mars_data database
+#     mars_data = mongo.db.mars_data
+#     # call the scrape function in our scrape_mars file to save to mongo.
+#     mars_data_ = scrape_mars_copy.scrape3()
+#     #print("My scraped data is : ", mars_data_)
+#     # update our mars data with the data that is being scraped.
+#     mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
+#     # return a message to our page so we know it was successful.
+#     return render_template('index.html',  tables=[df1.to_html(classes='data')], titles=df1.columns.values)
+#     return render_template('index.html',  tables=[df1.to_html(classes='data', header="true")])
 
-@app.route("/scrape")
-def scraper4():
-    # create a mars_data database
-    mars_data = mongo.db.mars_data
-    # call the scrape function in our scrape_mars file to save to mongo.
-    mars_data_ = scrape_mars.scrape4()
-    # update our mars data with the data that is being scraped.
-    mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
-    # return a message to our page so we know it was successful.
-    return redirect("/", code=302)
+
+# @app.route("/scrape")
+# def scraper4():
+#     # create a mars_data database
+#     mars_data = mongo.db.mars_data
+#     # call the scrape function in our scrape_mars file to save to mongo.
+#     mars_data_ = scrape_mars.scrape4()
+#     # update our mars data with the data that is being scraped.
+#     mars_data.update_many({}, {"$set": mars_data_}, upsert=True)
+#     # return a message to our page so we know it was successful.
+#     return redirect("/", code=302)
 
 
 if __name__ == "__main__":

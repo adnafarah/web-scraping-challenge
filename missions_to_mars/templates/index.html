@@ -16,44 +16,29 @@
           <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
         </div>
     
-        <!-- Mars Data -->
-        <div class="row" id="craiglist-listings">
-          <div class="col-md-8">
-            <h2 class="heading">{{ mars_data.news_title }} </h2>
-            <p> {{ mars_data.news_p }}</p>
-            <!-- <small>{{ mars_data.featured_image_url }}</small> -->
-            <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
-          </div>
-          </div>
-
+    <!-- Mars Data -->
+    <div class="row" id="craiglist-listings">
+      <div class="col-md-8">
+        <h2 class="heading">{{ mars_data.news_title }} </h2>
+        <p> {{ mars_data.news_p }}</p>
+        <!-- <small>{{ mars_data.featured_image_url }}</small> -->
+        <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
+      </div>
+      </div>
 
         <div class="table col-md-4">
-            <h2> Mars Facts</h2>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th> Key</th>
-                        <th> Value</th>
-                    </tr>
-                </thead>
-                {{ mars_data.mars_table }}  
-            </table>
+            <h2{text-align: right;}> Mars Facts</h2>
+
+            
+            {{ mars_data.mars_table }}
+
         </div>
           
           <div class="title text-center">
             <h2> Mars Hemispheres</h2>
           </div>
 
-          <div>            <img src="{{ mars_data.find({hemispheres:imgurl}) }}" alt="hem_dictsss">
-          </div>
-
-          <div>            <img src="{{ mars_data.hemispheres[2] }}" alt="Mars Featured Image">
-          </div>
-
-          <div>            <img src="{{ mars_data.hemispheres[3] }}" alt="Mars Featured Image">
-          </div>
-
-          <div>            <img src="{{ mars_data.hemispheres[4] }}" alt="Mars Featured Image">
+ 
           </div>
 
         </div>

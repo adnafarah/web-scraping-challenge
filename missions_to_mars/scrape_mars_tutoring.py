@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
  # Set an empty dict for saving to Mongo
 mars_data = {}
 
+
 def scrape1():
     
     # browser = init_browser()
@@ -26,7 +27,7 @@ def scrape1():
     
     # Call visit on our browser and pass in the URL we want to scrape   
     browser.visit(url1)
-
+    browser.is_element_present_by_css("div.list_text", wait_time=1)
     # Let it sleep for 1 second
     #time.sleep(1)
 
@@ -35,21 +36,19 @@ def scrape1():
     
     # Create a Beautiful Soup object, pass in our HTML, and call 'html.parser'
     news_soup = soup(html, 'html.parser')
-
+    print(news_soup)
     #Use CSS selector
     list_text = news_soup.select_one('div.list_text')
+    print(list_text)
     list_text.find('div', class_='content_title')
 
     # Build our dictionary for the headline, price, and neighborhood from our scraped data
     mars_data["news_title"] = list_text.find('div', class_='content_title').get_text()
     mars_data["news_p"] = list_text.find('div', class_='article_teaser_body').get_text()
     
-    browser.quit()
 
         # Return our dictionary
-    return mars_data
-
-def scrape2():
+    print("Returned data: ", mars_data)
     
 
     ## Scrape 2 JPL Mars Space Images—Featured Image ##
@@ -67,11 +66,10 @@ def scrape2():
     mars_data["featured_image_url"] = f'https://spaceimages-mars.com/{img_url_rel}'
 
 
-    browser.quit()
-
         # Return our dictionary
-    return mars_data
-def scrape3():
+    
+
+
     
     ## Scrape 3 Mars Facts##
 
@@ -79,11 +77,12 @@ def scrape3():
     mars_facts = pd.read_html(mars_facts_url)
 
     # Select info we want
-    mars_facts[0]
+    #mars_facts[0]
     #put into dataframe
     df1 = mars_facts[0]
-
-
+    #set index
+    df1 = df1.set_index(0)
+     
     #Make top row the column names 
     new_header = df1.iloc[0] 
     df1.columns = new_header
@@ -93,12 +92,7 @@ def scrape3():
     
     mars_data["mars_table"] = mars_table
 
-    browser.quit()
-
-        # Return our dictionary
-    return mars_data
-
-def scrape4():
+    
 
     ## Scrape 4 Mars Hemispheres ##
 
@@ -145,17 +139,4 @@ def scrape4():
     return mars_data
 
 
-    # # Build our dictionary from our scraped data
-    # mars_data["news_title"] = list_text.find('div', class_='content_title').get_text()
-    # mars_data["news_p"] = list_text.find('div', class_='article_teaser_body').get_text()
-    
-    # mars_data["featured_image_url"] = f'https://spaceimages-mars.com/{img_url_rel}'
-    # #mars_data["mars_table"] = mars_table
-    # mars_data["hemispheres"] = hem_dicts 
-
-    # # Quit the browser
-    # browser.quit()
-
-    # Return our dictionary
-    return mars_data
 
