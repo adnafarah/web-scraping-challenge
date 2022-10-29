@@ -8,26 +8,16 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
-
- # Set an empty dict for saving to Mongo
-mars_data = {}
-
-
-def scrape1():
+def scrape1(browser) -> tuple:
     
-    # browser = init_browser()
-    executable_path = {'executable_path': ChromeDriverManager().install()}
-    browser = Browser('chrome', **executable_path, headless=False)
-
-   
-
     ## Scrape 1 NASA Mars News##
     # The url we want to scrape
     url1 = 'https://redplanetscience.com/'
     
     # Call visit on our browser and pass in the URL we want to scrape   
     browser.visit(url1)
-    browser.is_element_present_by_css("div.list_text", wait_time=1)
+    browser.is_element_present_by_css("div.list_text", wait_time=1)  
+
     # Let it sleep for 1 second
     #time.sleep(1)
 
@@ -36,74 +26,59 @@ def scrape1():
     
     # Create a Beautiful Soup object, pass in our HTML, and call 'html.parser'
     news_soup = soup(html, 'html.parser')
-    print(news_soup)
+
     #Use CSS selector
     list_text = news_soup.select_one('div.list_text')
-    print(list_text)
     list_text.find('div', class_='content_title')
 
     # Build our dictionary for the headline, price, and neighborhood from our scraped data
-    mars_data["news_title"] = list_text.find('div', class_='content_title').get_text()
-    mars_data["news_p"] = list_text.find('div', class_='article_teaser_body').get_text()
-    
-    browser.quit()
-
-        # Return our dictionary
-    print("Returned data: ", mars_data)
-    return mars_data
-
-def scrape2():
+    news_title = list_text.find('div', class_='content_title').get_text()
+    news_paragraph = list_text.find('div', class_='article_teaser_body').get_text()
     
 
-    ## Scrape 2 JPL Mars Space Images—Featured Image ##
-    url2 = 'https://spaceimages-mars.com/'
-    browser.visit(url2)
+    # Return our dictionary
+    return news_title, news_paragraph
+
+def scrape2(browser):
+    
+    url = 'https://spaceimages-mars.com/'
+    browser.visit(url)
 
     full_image_elem = browser.find_by_tag('button')[1]
     full_image_elem.click()
 
+    # Parse html with soup
     html = browser.html
     img_soup = soup(html, 'html.parser')
 
-    img_url_rel = img_soup.find('img', class_='headerimage fade-in').get('src')
+    img_url_rel = img_soup.find('img', class_='fancybox-image').get('src')
 
-    mars_data["featured_image_url"] = f'https://spaceimages-mars.com/{img_url_rel}'
+    #Store as variable
+    featured_image_url = f'https://spaceimages-mars.com/{img_url_rel}'
+       
+    return featured_image_url
 
-
-    browser.quit()
-
-        # Return our dictionary
-    return mars_data
-
-def scrape3():
+def scrape3(browser):
     
     ## Scrape 3 Mars Facts##
 
     mars_facts_url = 'https://galaxyfacts-mars.com/'
     mars_facts = pd.read_html(mars_facts_url)
 
-    # Select info we want
-    mars_facts[0]
     #put into dataframe
     df1 = mars_facts[0]
 
-
     #Make top row the column names 
-    new_header = df1.iloc[0]
-    df1 = df1.set_index(0) 
+    new_header = df1.iloc[0] 
     df1.columns = new_header
 
     #convert to html string 
-    mars_table = df1.to_html
-    
-    mars_data["mars_table"] = mars_table
-
-    browser.quit()
+    mars_table = df1.to_html(classes="table table-striped")        
 
         # Return our dictionary
-    return mars_data
+    return mars_table
 
-def scrape4():
+def scrape4(browser):
 
     ## Scrape 4 Mars Hemispheres ##
 
@@ -143,24 +118,40 @@ def scrape4():
         hem_dicts.append({'title': title,
                         'imgurl': imgurl        
         })
-    
+        
+
+    return titles_list, img_links
+
+
+def scrape():
+    # Set an empty dict for saving to Mongo
+    mars_data = {}
+
+    # browser = init_browser()
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path, headless=True)
+
+    data1 = scrape1(browser)
+    data2 = scrape2(browser)
+    data3 = scrape3(browser)
+    data4 = scrape4(browser)
+    print("The scraped data are")
+    print(data1, data2, data3)
     browser.quit()
-    mars_data["hemispheres"] = hem_dicts 
-        # Return our dictionary
+    mars_data = {"news_title": data1[0],
+                "news_paragraph": data1[1],
+                "featured_image_url": data2,
+                "mars_table": data3,
+                "Cerberus_Hemispheres_Enhanced_title": data4[0][0],
+                "Cerberus_Hemispheres_Enhanced_img": data4[1][0],
+                "Schiaparelli_Hemisphere_Enhanced_title": data4[0][1],
+                "Schiaparelli_Hemisphere_Enhanced_img": data4[1][1],
+                "Syrtis_Major_Hemisphere_Enhanced_title": data4[0][2],
+                "Syrtis_Major_Hemisphere_Enhanced_img": data4[1][2],
+                "Valles_Marineris_Hemisphere_Enhanced_title": data4[0][3],
+                "Valles_Marineris_Hemisphere_Enhanced_img": data4[1][3]
+                }
     return mars_data
 
-
-    # # Build our dictionary from our scraped data
-    # mars_data["news_title"] = list_text.find('div', class_='content_title').get_text()
-    # mars_data["news_p"] = list_text.find('div', class_='article_teaser_body').get_text()
     
-    # mars_data["featured_image_url"] = f'https://spaceimages-mars.com/{img_url_rel}'
-    # #mars_data["mars_table"] = mars_table
-    # mars_data["hemispheres"] = hem_dicts 
-
-    # # Quit the browser
-    # browser.quit()
-
-    # Return our dictionary
-    return mars_data
 

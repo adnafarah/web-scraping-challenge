@@ -12,43 +12,63 @@
     <div class="container">
 
         <div class="jumbotron text-center">
-          <h1>MISSION TO MARS!!</h1>
+          <h1>Mission to Mars</h1>
           <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
         </div>
-    
-    <!-- Mars Data -->
-    <div class="row" id="craiglist-listings">
-      <div class="col-md-8">
+    </div>
+
+<div class="container">
+
+  <div class="container">
+
+
         <h2 class="heading">{{ mars_data.news_title }} </h2>
         <p> {{ mars_data.news_p }}</p>
-        <!-- <small>{{ mars_data.featured_image_url }}</small> -->
+        
+</div>
+
+<div class=" container col-md-8">
+          <h2> Mars Featured Image</h2>
         <img src="{{ mars_data.featured_image_url }}" alt="Mars Featured Image">
-      </div>
-      </div>
+</div>
+    
 
-        <div class="table col-md-4">
-            <h2{text-align: right;}> Mars Facts</h2>
-
+<div class="container col-md-4">
+            <h2 style="text-align: right" > Mars Facts</h2>
             
-            {{ mars_data.mars_table }}
+            {{ mars_data.mars_table | safe }}
 
-        </div>
+</div>
+      
+</div>
+
+      <div class="container">
           
           <div class="title text-center">
             <h2> Mars Hemispheres</h2>
           </div>
 
- 
+          <div class="col-md-3">    
+            <h3>{{ mars_data.Cerberus_Hemispheres_Enhanced_title }} </h3>
+                  <img src="{{ mars_data.Cerberus_Hemispheres_Enhanced_img }}" width="200" height="200" alt="Cerberus Hemisphere">
           </div>
 
-        </div>
+          <div class="col-md-3">    
+            <h3>{{ mars_data.Schiaparelli_Hemisphere_Enhanced_title }} </h3>
+                  <img src="{{ mars_data.Schiaparelli_Hemisphere_Enhanced_img }}" width="200" height="200" alt="Schiaparelli Hemisphere">
+          </div>
+
+          <div class="col-md-3">    
+            <h3>{{ mars_data.Syrtis_Major_Hemisphere_Enhanced_title }} </h3>
+                  <img src="{{ mars_data.Syrtis_Major_Hemisphere_Enhanced_img }}" width="200" height="200" alt="Syrtis Major Hemisphere">
+          </div>
+
+          <div class="col-md-3">    
+            <h3>{{ mars_data.Valles_Marineris_Hemisphere_Enhanced_title }} </h3>
+                  <img src="{{ mars_data.Valles_Marineris_Hemisphere_Enhanced_img }}" width="200" height="200" alt="Valles Marineris Hemisphere">
+          </div>
     
-      </div>
-    
-
-
-
-
-
+</div>
+</div>
 </body>
 </html>
